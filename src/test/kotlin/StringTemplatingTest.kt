@@ -13,8 +13,8 @@ import org.junit.runner.RunWith
 class StringTemplatingTest : Spek({
     given("the need to templatize a string") {
         it("is done with the $ char") {
-            val thepres = "Trump"
-            val s = "Your president is $thepres"
+            val thePres = "Trump"
+            val s = "Your president is $thePres"
             s shouldEqual "Your president is Trump"
         }
     }

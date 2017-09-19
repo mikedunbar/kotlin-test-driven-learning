@@ -9,10 +9,10 @@ import org.junit.runner.RunWith
  * @author Mike Dunbar
  */
 @RunWith(JUnitPlatform::class)
-class ClassBasics : Spek({
+class ClassBasicsTest : Spek({
 
     given("The need to define a class containing only properties") {
-        it("Can be done very concisely in Kotlin, where properties are first class citizen") {
+        it("Can be done very concisely in Kotlin, where properties are first class citizens") {
             class Person(
                     val name: String,
                     val age : Int)
@@ -35,22 +35,38 @@ class ClassBasics : Spek({
             mike.age shouldEqual 43
         }
 
-        it("provides only an accessor for the var property") {
+        it("provides only an accessor for the val property") {
             mike.name shouldEqual "Mike"
             //uncomment to see compile error
-            //mike.name = "Donald"
+            //mike.title = "Donald"
         }
     }
 
     given("the desire to use an existing Java class with getters and setters") {
         it("it exposes the getters and setters as Kotlin properties") {
-            val kotlinInAction = JavaBook("Kotlin in Action", true);
+            val kotlinInAction = JavaBook("Kotlin in Action", true)
             kotlinInAction.title shouldEqual "Kotlin in Action"
             kotlinInAction.isAvailableOnSafari shouldEqual true
             kotlinInAction.isAvailableOnSafari = false
+            kotlinInAction.isAvailableOnSafari = false
         }
-
-
     }
+
+    given("A class with some normal properties ") {
+        it("can provide a custom accessor for a property that is computed and not stored") {
+            class Person(val name: String, var age : Int) {
+                val canBuyAlcohol: Boolean
+                    get() = age >= 21
+            }
+
+            val joe = Person("Joe", 20)
+            joe.canBuyAlcohol shouldEqual false
+
+            val mark = Person("Mark", 30)
+            mark.canBuyAlcohol shouldEqual true
+        }
+    }
+
+
 
 })
