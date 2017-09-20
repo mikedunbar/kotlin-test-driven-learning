@@ -64,7 +64,7 @@ class WhenTest : Spek({
             mix(Color.YELLOW, Color.BLUE) shouldEqual Color.GREEN
         }
         it("can be used without an argument, giving a boolean expression for each branch") {
-            fun colorForInt(int: Int) =
+            fun colorForInt(int: Int)  =
                     when {
                         (int == 1) -> Color.RED
                         (int == 4) -> Color.GREEN
@@ -73,6 +73,41 @@ class WhenTest : Spek({
 
             colorForInt(4) shouldEqual Color.GREEN
             colorForInt(-1) shouldEqual Color.VIOLET
+        }
+        it("can have blocks as branches") {
+            fun colorForInt(int: Int) =
+                    when {
+                        (int == 1) -> {
+                            println("red")
+                            Color.RED
+                        }
+                        (int == 4) -> {
+                            println("green")
+                            Color.GREEN
+                        }
+                        else -> {
+                            println("violet")
+                            Color.VIOLET
+                        }
+
+                    }
+
+            colorForInt(4) shouldEqual Color.GREEN
+            colorForInt(-1) shouldEqual Color.VIOLET
+        }
+        it("requires multi-line branches to be in blocks/curly braces") {
+            val list = mutableListOf<String>()
+            fun funkyFunc(int: Int) =
+                    when {
+                        (int == 1) ->
+                            list.add("one")
+                            // uncomment below line to see error
+                            //println("received a one")
+                        else ->
+                                println("unknown")
+                    }
+            funkyFunc(1)
+            list shouldEqual listOf("one")
         }
 
 
