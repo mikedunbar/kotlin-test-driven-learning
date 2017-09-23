@@ -1,4 +1,3 @@
-import org.amshove.kluent.`should be instance of`
 import org.amshove.kluent.shouldBeInstanceOf
 import org.amshove.kluent.shouldEqual
 import org.jetbrains.spek.api.Spek
@@ -14,7 +13,7 @@ import org.junit.runner.RunWith
 class HelloWorldTest : Spek({
     given("a simple function") {
         fun getGreeting(name: String) : String {
-            val greeting = "Hello $name";
+            val greeting = "Hello $name"
             println("Returning $greeting")
             return greeting
         }

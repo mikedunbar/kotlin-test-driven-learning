@@ -34,7 +34,7 @@ class WhenTest : Spek({
                 }
             }
 
-            var list = mutableListOf<String>()
+            val list = mutableListOf<String>()
             addToList(Size.MEDIUM, list)
             list shouldEqual listOf("m")
             list shouldNotEqual listOf("m", "l", "xl") // Result in Java when breaks are omitted
