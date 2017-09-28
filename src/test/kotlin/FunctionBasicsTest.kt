@@ -6,6 +6,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 
+
 /**
  * @author Mike Dunbar
  */
@@ -114,6 +115,86 @@ class FunctionBasicsTest : Spek({
         it("can be done using curly braces {}") {
             val s = "the total is ${20 + 50 + 30}"
             s shouldEqual "the total is 100"
+        }
+    }
+
+    given("a collection created in Kotltin") {
+        val list = arrayListOf("one", "two", "three")
+
+        it("has a java collection type") {
+            list shouldBeInstanceOf java.util.ArrayList::class
+        }
+
+        it("has more helper functions that available in Java") {
+            list.last() shouldEqual "three"
+            list.min() shouldEqual "one"
+        }
+    }
+
+    given("a utility function") {
+        fun <T> joinToString(
+                collection: Collection<T>,
+                separator: String,
+                prefix: String,
+                postFix: String
+        ) : String {
+            val result = StringBuilder(prefix)
+
+            for((index, element) in collection.withIndex()) {
+                if (index > 0) {
+                    result.append(separator)
+                }
+                result.append(element)
+            }
+            result.append(postFix)
+            return result.toString()
+        }
+
+        val intList = listOf(1,3,5,7)
+
+        it("can be used") {
+            joinToString(intList, "; ", "(", ")") shouldEqual "(1; 3; 5; 7)"
+        }
+
+        it("can be called with named parameters to increase readability (without IDE support)") {
+            joinToString(intList, separator = "; ", prefix = "(", postFix = ")") shouldEqual "(1; 3; 5; 7)"
+        }
+    }
+
+    given("a Java method") {
+        it("Cannot be called from Kotlin with named parameters") {
+            //Uncomment below to see compile error
+            //val b = JavaBook(title = "Clean Arch", isAvailableOnSafare = false)
+        }
+    }
+
+    given("a function defined with default parameter values") {
+        fun <T> joinToString(
+                collection: Collection<T>,
+                separator: String = ", ",
+                prefix: String = "",
+                postFix: String = ""
+        ) : String {
+            val result = StringBuilder(prefix)
+
+            for((index, element) in collection.withIndex()) {
+                if (index > 0) {
+                    result.append(separator)
+                }
+                result.append(element)
+            }
+            result.append(postFix)
+            return result.toString()
+        }
+        val intList = listOf(1,3,5,7)
+
+        it("can be called with the defaulted params omitted") {
+            joinToString(intList) shouldEqual "1, 3, 5, 7"
+        }
+
+        it("can be called with the some or all of the defaulted params supplied") {
+            joinToString(intList, " * ", "[", "]") shouldEqual "[1 * 3 * 5 * 7]"
+            joinToString(intList, postFix = "]") shouldEqual "1, 3, 5, 7]"
         }
     }
 
