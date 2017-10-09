@@ -197,7 +197,4 @@ class FunctionBasicsTest : Spek({
             joinToString(intList, postFix = "]") shouldEqual "1, 3, 5, 7]"
         }
     }
-
-
-
 })

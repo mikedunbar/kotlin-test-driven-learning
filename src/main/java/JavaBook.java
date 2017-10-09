@@ -4,6 +4,7 @@
 public class JavaBook {
     private String title;
     private boolean isAvailableOnSafari;
+    private String stringWithoutAccessor = "private stuff";
 
     public JavaBook(String title, boolean isAvailableOnSafari) {
         this.title = title;
