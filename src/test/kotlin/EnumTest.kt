@@ -22,7 +22,7 @@ class EnumTest : Spek({
             Platform.ANDROID.description() shouldEqual "Android, brought to you by Google"
         }
 
-        it("requires a semicolon at the end of the enum constant since it includes a function") {
+        it("requires a semicolon at the end of the enum constant list since it includes a function") {
             Platform.IOS.description() shouldEqual "IOS, brought to you by Apple"
         }
     }

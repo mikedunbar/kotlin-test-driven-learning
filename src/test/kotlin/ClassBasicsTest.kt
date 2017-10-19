@@ -12,7 +12,7 @@ import org.junit.runner.RunWith
 class ClassBasicsTest : Spek({
 
     given("The need to define a class containing only properties") {
-        it("Can be done very concisely in Kotlin, where properties are first class citizens") {
+        it("Can be done very concisely in Kotlin with a primary constructor, where properties are first class citizens") {
             class Person(
                     val name: String,
                     val age : Int)
@@ -66,7 +66,4 @@ class ClassBasicsTest : Spek({
             mark.canBuyAlcohol shouldEqual true
         }
     }
-
-
-
 })

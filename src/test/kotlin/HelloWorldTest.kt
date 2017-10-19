@@ -20,7 +20,7 @@ class HelloWorldTest : Spek({
 
         it("shows you a lot about the language:" +
                 "'fun' is the keyword for function, " +
-                "parameter title comes before type, " +
+                "parameter name comes before type, " +
                 "return type comes at the end, " +
                 "string templates can be defined with the '$' symbol, " +
                 "use println to print/no System.out required, " +

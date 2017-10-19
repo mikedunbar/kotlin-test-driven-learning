@@ -12,3 +12,5 @@ class Dog (val name: String, var age: Int) {
 fun findDrinkingBuddy(people: List<Person>) : Person? {
     return people.find { it -> it.canBuyAlcohol }
 }
+
+private fun doSomethingFromOtherFile() = 12

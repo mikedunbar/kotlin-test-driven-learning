@@ -36,6 +36,11 @@ class MiscForNowTest : Spek({
             //uncomment below to see that var theName doesn't exist here
             //theName shouldEqual nonNullHolder.name
 
+            nullHolder.name.let { theName ->
+                println("In let with null name")
+                theName shouldBe null
+            }
+
         }
     }
 

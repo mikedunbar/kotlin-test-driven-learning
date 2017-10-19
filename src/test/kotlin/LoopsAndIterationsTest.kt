@@ -94,7 +94,7 @@ class LoopsAndIterationsTest : Spek({
             }
             copy shouldEqual orig
         }
-        it("can upack the index in addition to the value in a for loop") {
+        it("can unpack the index in addition to the value in a for loop") {
             val indices = mutableListOf<Int>()
             val elements = mutableListOf<Int>()
             for((index, element) in orig.withIndex()) {

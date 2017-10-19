@@ -32,7 +32,4 @@ class StringTemplatingTest : Spek({
             s shouldEqual "the total is 100"
         }
     }
-
-
-
 })

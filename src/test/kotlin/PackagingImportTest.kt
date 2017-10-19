@@ -38,7 +38,7 @@ class PackagingImportTest : Spek({
 
     given("The desire to define packages in Kotlin") {
         it("doesn't force package names to mirror directory structure like Java") {
-            // Note that com.package2 is defined in the top-level src/main/kotlin directory
+            // Note that com.package1 is defined in the top-level src/main/kotlin directory
         }
     }
 
