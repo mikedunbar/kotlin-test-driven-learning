@@ -165,6 +165,9 @@ class FunctionBasicsTest : Spek({
         it("Cannot be called from Kotlin with named parameters") {
             //Uncomment below to see compile error
             //val b = JavaBook(title = "Clean Arch", isAvailableOnSafare = false)
+
+
+            fun sayHello() : String = "hello"
         }
     }
 

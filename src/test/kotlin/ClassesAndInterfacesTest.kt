@@ -32,7 +32,7 @@ class ClassesAndInterfacesTest : Spek ({
             Button().click() shouldEqual 20
         }
 
-        it("is mandatory to use the 'override' keyword in implementing classes") {
+        it("is mandatory to use the 'override' keyword in implementing methods") {
             // Remove 'override' modifier above to see error
         }
 
@@ -160,7 +160,6 @@ class ClassesAndInterfacesTest : Spek ({
                 init {
                     this.age = age
                 }
-
             }
         }
 
@@ -181,7 +180,7 @@ class ClassesAndInterfacesTest : Spek ({
         open class Base(val baseItem: String)
 
         it("must initialize the superclass if the superclass has a constructor") {
-            class Sub(subItem: String) : Base(subItem)
+            class Sub(baseItem: String) : Base(baseItem)
 
             val mySub = Sub("myItem")
             mySub.baseItem shouldEqual "myItem"
@@ -265,9 +264,7 @@ class ClassesAndInterfacesTest : Spek ({
 
             }
         }
-
     }
-
 })
 
 interface WithProperty {

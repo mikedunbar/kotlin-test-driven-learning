@@ -23,7 +23,7 @@ class HelloWorldTest : Spek({
                 "parameter name comes before type, " +
                 "return type comes at the end, " +
                 "string templates can be defined with the '$' symbol, " +
-                "use println to print/no System.out required, " +
+                "use println to print - no System.out required, " +
                 "semicolons are optional" ) {
             val greeting: String = getGreeting("Donald")
             greeting shouldEqual "Hello Donald"

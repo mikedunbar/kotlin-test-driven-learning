@@ -48,7 +48,7 @@ class ClassBasicsTest : Spek({
             kotlinInAction.title shouldEqual "Kotlin in Action"
             kotlinInAction.isAvailableOnSafari shouldEqual true
             kotlinInAction.isAvailableOnSafari = false
-            kotlinInAction.isAvailableOnSafari = false
+            kotlinInAction.isAvailableOnSafari shouldEqual  false
         }
     }
 
