@@ -80,6 +80,133 @@ class HigherOrderFunctionsTest : Spek({
             getLogic(20).invoke() shouldEqual "high"
         }
     }
+
+    describe("control flow in higher-order functions") {
+
+        it("treats a 'return' stmt in a lambda as a return from the function where you called the lambda." +
+                "This is called a non-local return, because it returns from more than the local block") {
+            fun findOrangeString(stringList: List<String>) : String {
+                stringList.forEach{
+                    if (it.toLowerCase() == "orange") {
+                        return it
+                    }
+                }
+                return "not found"
+            }
+
+            findOrangeString(listOf("blue", "orange", "ball")) shouldEqual "orange"
+        }
+
+        it("is possible to do a local return from a lambda, similar to 'break'ing out of a for loop" +
+                ", and is done with a label") {
+            fun findOrangeString(stringList: List<String>) : String {
+                stringList.forEach label@{
+                    if (it.toLowerCase() == "orange") {
+                        return@label
+                    }
+                }
+                return "not sure"
+            }
+            findOrangeString(listOf("blue", "orange")) shouldEqual "not sure"
+
+        }
+
+        it("allows any identifier for the label name, not just 'label'") {
+            fun findOrangeString(stringList: List<String>) : String {
+                stringList.forEach trump@{
+                    if (it.toLowerCase() == "orange") {
+                        return@trump
+                    }
+                }
+                return "not sure"
+            }
+            findOrangeString(listOf("blue", "orange")) shouldEqual "not sure"
+        }
+
+        it("is possible to use the name of the function taking the lambda as a label") {
+            fun findOrangeString(stringList: List<String>) : String {
+                stringList.forEach{
+                    if (it.toLowerCase() == "orange") {
+                        return@forEach
+                    }
+                }
+                return "not sure"
+            }
+            findOrangeString(listOf("blue", "orange")) shouldEqual "not sure"
+        }
+
+        it("is possible to label a lambda, and use that label to reference the lambda's receiver") {
+            fun useLabel() = StringBuilder().apply mysb@{
+                listOf(1,3,5).apply {
+                    this@mysb.append(this)
+                }
+            }.toString()
+
+            useLabel() shouldEqual "[1, 3, 5]"
+        }
+
+
+    }
+
+    describe("an anonymous function") {
+        it("is an alternative way to pass around code blocks") {
+            var found = false
+            fun findOrangeString(stringList: List<String>) {
+                stringList.forEach(fun (str)  {
+                    if (str.toLowerCase() == "orange") {
+                        found = true
+                        return
+                    }
+                    return
+                })
+            }
+
+            findOrangeString(listOf("blue", "orange", "ball"))
+            found shouldEqual true
+            found = false // reset
+            findOrangeString(listOf("green", "red"))
+            found shouldEqual false
+        }
+
+        it("follows the same rules for specifying a return type, though it's name and parameter types are always omitted") {
+            fun retainOnlyOrange(stringList: List<String>) : List<String> {
+                return stringList.filter(fun (str) : Boolean {
+                    return str.toLowerCase() == "orange"
+                })
+            }
+            retainOnlyOrange(listOf("orange", "red")) shouldEqual listOf("orange")
+            retainOnlyOrange(listOf("blue", "red")) shouldEqual emptyList()
+        }
+
+        it ("can omit the return type, when defined with an expression body") {
+            fun retainOnlyOrange(stringList: List<String>) : List<String> {
+                return stringList.filter(fun (str) : Boolean = str.toLowerCase() == "orange")
+            }
+            retainOnlyOrange(listOf("orange", "red")) shouldEqual listOf("orange")
+            retainOnlyOrange(listOf("blue", "red")) shouldEqual emptyList()
+        }
+    }
+
+    describe("how a 'return' statement (without a label) is resolved in nested scenarios") {
+        it("returns from the nearest function declared with the 'fun' keyword") {
+            var reached = false
+            fun topLevel(strings: List<String>) {
+                strings.forEach {if (it == "orange") return }
+                reached = true
+            }
+            topLevel(listOf("orange"))
+            reached shouldEqual false
+
+            reached = false
+            fun topLevel2(strings: List<String>) {
+                strings.forEach(fun(str) { if (str == "orange") return})
+                reached = true
+            }
+            topLevel2(listOf("orange"))
+            reached shouldEqual true
+        }
+    }
+
 })
 
 fun callableFromJava(someFunc: (Int, Int) -> Int) = {"someFunc returned ${someFunc(2, 3)} when called with 2 and 3"}
