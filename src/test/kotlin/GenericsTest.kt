@@ -288,8 +288,62 @@ class GenericsTest : Spek({
 
     describe("when a generic class or interface is called 'covariant'") {
         it("is when for any two types A & B, GenericClass<A> is a subtype of GenericClass<B> when A is a subtype of B") {
-            
+
         }
+
+        it("preserves the subtyping relations of it's type arguments") {
+
+        }
+    }
+
+    describe("when a generic class or interface is called 'contravariant'") {
+        it("is when for any two types A & B, GenericClass<A> is a subtype of GenericClass<B> when B is a subtype of A") {
+
+        }
+
+        it("reverses the subtyping relations of it's type arguments") {
+
+        }
+
+    }
+
+    describe("the 'out' keyword/position") {
+        it("is where the type parameter T is returned from a function in a generic class") {
+
+        }
+
+        it("is the the function 'producing' a value of T") {}
+
+        it("means the class can only use T for function return types, when T is declared with 'out'"){}
+
+        it("it is covariant - preserves the subtyping relations of type params"){}
+
+        it("still allows for a type parameter to be a constructor arg"){}
+    }
+
+    describe("the 'in' keyword/position") {
+        it("is where the type parameter T is passed into a function in a general class") {
+
+        }
+
+        it("is the function 'consuming' a value of T"){}
+
+        // more opposites of 'out' params
+
+
+
+    }
+
+    describe("use site variance"){
+        fun <T: R, R>
+
+        it("is how java handles variances with wildcards") {}
+
+        it("specifies the variance for the particular occurrence of a type param in a function, when it can't be declared at the class level ") {
+            // refine
+        }
+
+
     }
 })
 
